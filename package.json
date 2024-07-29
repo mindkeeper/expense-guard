@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-nestjs",
+  "name": "expense-guard",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "dotenv -e .env.local -- nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -17,10 +17,12 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migrate:dev": "dotenv -e .env.local -- npx prisma migrate dev --name init",
+    "seed:dev": "dotenv -e .env.local -- npx prisma db seed"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed/index.ts"
+    "seed": "ts-node prisma/seeds/index.ts"
   },
   "dependencies": {
     "@anatine/zod-nestjs": "^2.0.9",

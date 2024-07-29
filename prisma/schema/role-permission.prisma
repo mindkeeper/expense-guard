@@ -1,0 +1,9 @@
+model RolePermission {
+    roleId       Int      @map("role_id")
+    permissionId Int      @map("permission_id")
+    createdAt    DateTime @default(now()) @map("created_at")
+    updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+
+    @@id([roleId, permissionId])
+    @@map("role_permissions")
+}

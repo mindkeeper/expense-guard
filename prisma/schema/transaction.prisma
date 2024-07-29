@@ -1,0 +1,21 @@
+model Transaction {
+    id              Int       @id @default(autoincrement())
+    userId          Int       @map("user_id")
+    accountId       Int       @map("account_id")
+    categoryId      Int       @map("category_id")
+    amount          Decimal   @map("amount") @db.Decimal
+    type            Type
+    transactionDate DateTime? @map("transaction_date") @db.Date
+    description     String?   @map("description") @db.VarChar(100)
+    createdAt       DateTime  @default(now()) @map("created_at")
+    updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at")
+
+    User     User       @relation(fields: [userId], references: [id])
+    Account  Account    @relation(fields: [accountId], references: [id])
+    Category Categories @relation(fields: [categoryId], references: [id])
+}
+
+enum Type {
+    INCOME
+    EXPENSE
+}
