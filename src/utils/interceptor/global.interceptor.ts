@@ -15,6 +15,7 @@ export interface IResponse<T> {
   path: string;
   statusCode: number;
   message: string | { [key: string]: string }[] | ZodIssue[];
+  data: T;
 }
 
 @Injectable()
