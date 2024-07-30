@@ -3,7 +3,7 @@ import { SignUpDto } from './dto';
 import { PrismaService } from 'src/common/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,11 +21,13 @@ export class AuthService {
     if (user) {
       throw new BadRequestException('User already exists');
     }
+    const hashedPassword = await bcrypt.hash(signUpDto.password, 10);
+    signUpDto.password = hashedPassword;
     const newUser = await this.prisma.user.create({
       data: {
         email: signUpDto.email,
         password: signUpDto.password,
-        roleId: 1,
+        roleId: 2,
       },
       select: {
         email: true,
@@ -34,6 +36,8 @@ export class AuthService {
 
     return newUser;
   }
+
+  // async authenticate(email: string, password: string) {
 
   async createToken(payload: any) {
     const token = await this.jwt.signAsync(payload);

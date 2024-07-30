@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Res, UsePipes } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignUpDto, SignUpResponse } from './dto';
+import { SignUpDto, SignUpResponse, TSignUpResponse } from './dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { Response } from 'express';
@@ -24,7 +24,7 @@ export class AuthController {
   async signUp(
     @Body() signUpDto: SignUpDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<SignUpResponse> {
+  ): Promise<TSignUpResponse> {
     const { config } = this;
     const user = await this.authService.signUp(signUpDto);
     const token = await this.authService.createToken(user);
@@ -40,9 +40,9 @@ export class AuthController {
     return token;
   }
 
-  @Post('sign-in')
-  @ApiResponse({ status: 200, type: SignUpResponse })
-  async signIn() {
-    return 'sign-in';
-  }
+  // @Post('sign-in')
+  // @ApiResponse({ status: 200, type: SignUpResponse })
+  // async signIn() {
+  //   return 'sign-in';
+  // }
 }

@@ -1,6 +1,7 @@
 import { createZodDto } from '@anatine/zod-nestjs';
 import { extendApi } from '@anatine/zod-openapi';
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseResponse } from 'src/utils';
 import { z } from 'zod';
 
 const SignUpZ = extendApi(
@@ -18,7 +19,15 @@ const SignUpZ = extendApi(
 
 export class SignUpDto extends createZodDto(SignUpZ) {}
 
-export class SignUpResponse {
-  @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' })
+export class SignUpResponse extends createZodDto(
+  BaseResponse.extend({
+    statusCode: z.number().default(201),
+    data: z.object({
+      access_token: z.string(),
+    }),
+  }),
+) {}
+
+export type TSignUpResponse = {
   access_token: string;
-}
+};
