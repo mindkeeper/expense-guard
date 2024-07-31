@@ -1,6 +1,20 @@
-import { Body, Controller, Post, Res, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  Res,
+  UsePipes,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignUpDto, SignUpResponse, TSignUpResponse } from './dto';
+import {
+  SignInDto,
+  SignInResponse,
+  SignUpDto,
+  SignUpResponse,
+  TSignInResponse,
+  TSignUpResponse,
+} from './dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { Response } from 'express';
@@ -40,9 +54,29 @@ export class AuthController {
     return token;
   }
 
-  // @Post('sign-in')
-  // @ApiResponse({ status: 200, type: SignUpResponse })
-  // async signIn() {
-  //   return 'sign-in';
-  // }
+  @Post('sign-in')
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid credentials',
+  })
+  @ApiResponse({ status: 200, type: SignInResponse })
+  @HttpCode(200)
+  async signIn(
+    @Body() signInDto: SignInDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<TSignInResponse> {
+    const { config } = this;
+    const user = await this.authService.authenticate(signInDto);
+    const token = await this.authService.createToken(user);
+    const refreshToken = await this.authService.createRefreshToken(user);
+    res.cookie(config.get('COOKIE_NAME'), refreshToken, {
+      httpOnly: config.get('COOKIE_HTTP_ONLY'),
+      secure: config.get('COOKIE_SECURE'),
+      maxAge: config.get('COOKIE_MAX_AGE'),
+      sameSite: config.get('COOKIE_SAME_SITE'),
+      signed: true,
+    });
+
+    return token;
+  }
 }

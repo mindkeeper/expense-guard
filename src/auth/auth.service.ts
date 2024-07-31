@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { SignUpDto } from './dto';
+import { SignInDto, SignUpDto } from './dto';
 import { PrismaService } from 'src/common/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
@@ -37,7 +37,28 @@ export class AuthService {
     return newUser;
   }
 
-  // async authenticate(email: string, password: string) {
+  async authenticate(dto: SignInDto) {
+    const { identifier, password } = dto;
+    const user = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ email: identifier }, { username: identifier }],
+      },
+      select: {
+        email: true,
+        password: true,
+      },
+    });
+    if (!user) {
+      throw new BadRequestException('Invalid credentials');
+    }
+
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) {
+      throw new BadRequestException('Invalid credentials');
+    }
+
+    return { email: user.email };
+  }
 
   async createToken(payload: any) {
     const token = await this.jwt.signAsync(payload);
