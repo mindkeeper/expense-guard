@@ -5,8 +5,8 @@ import { z } from 'zod';
 
 const AuthZ = extendApi(
   z.object({
-    identifier: z.string(),
-    password: z.string(),
+    identifier: z.string().default('admin@mail.com'),
+    password: z.string().default('admin123'),
   }),
 );
 

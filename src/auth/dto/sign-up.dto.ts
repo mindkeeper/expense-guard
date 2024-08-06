@@ -1,6 +1,5 @@
 import { createZodDto } from '@anatine/zod-nestjs';
 import { extendApi } from '@anatine/zod-openapi';
-import { ApiProperty } from '@nestjs/swagger';
 import { BaseResponse } from 'src/utils';
 import { z } from 'zod';
 

@@ -2,16 +2,21 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
+import { PassportModule } from '@nestjs/passport';
+import { TokenModule } from 'src/token/token.module';
+import { PaginatorService } from './paginator.service';
 
 @Module({
-  providers: [PrismaService],
-  exports: [PrismaService],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env.local',
     }),
+    PassportModule,
+    TokenModule,
   ],
+  providers: [PrismaService, PaginatorService],
+  exports: [PrismaService, PaginatorService, PassportModule, TokenModule],
 })
 export class CommonModule {
   constructor(private readonly config: ConfigService) {}

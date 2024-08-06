@@ -4,7 +4,7 @@ model PermissionGroup {
     groupName   String       @unique @map("group_name") @db.VarChar(100)
     createdAt   DateTime     @default(now()) @map("created_at")
     updatedAt   DateTime     @default(now()) @updatedAt @map("updated_at")
-    Permissions Permission[]
+    permissions Permission[]
 
     @@map("permission_groups")
 }
