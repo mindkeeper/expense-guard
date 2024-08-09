@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma.service';
-import { CreateCategoryDto, TAllCategory, TCategory } from './dto';
-import { TCategoryQuery } from './dto/query';
+import {
+  CreateCategoryDto,
+  TAllCategory,
+  TCategory,
+  TCategoryQuery,
+  UpdateCategoryDto,
+} from './dto';
 import { PaginatorService } from 'src/common/paginator.service';
 
 @Injectable()
@@ -71,5 +76,25 @@ export class CategoryService {
     );
 
     return categories;
+  }
+
+  async updateCategory(
+    id: number,
+    data: UpdateCategoryDto,
+  ): Promise<TCategory> {
+    return await this.prisma.categories.update({
+      where: { id },
+      data: {
+        categoryKey: data.categoryKey,
+        categoryName: data.categoryName,
+        categoryType: data.categoryType,
+      },
+      select: {
+        id: true,
+        categoryKey: true,
+        categoryName: true,
+        categoryType: true,
+      },
+    });
   }
 }

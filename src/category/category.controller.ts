@@ -3,7 +3,9 @@ import {
   Controller,
   DefaultValuePipe,
   Get,
+  Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -17,6 +19,7 @@ import {
   CreateCategoryResponse,
   TAllCategory,
   TCategory,
+  TCategoryQuery,
 } from './dto';
 import { JwtGuard } from 'src/token/guard';
 import { PermissionStrategy } from 'src/token/strategy';
@@ -28,6 +31,7 @@ import { PermissionStrategy } from 'src/token/strategy';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
+  // create category
   @Post()
   @ApiResponse({
     status: 201,
@@ -41,6 +45,7 @@ export class CategoryController {
     return await this.categoryService.createCategory(data);
   }
 
+  // find all categories
   @Get()
   @ApiResponse({
     status: 200,
@@ -70,7 +75,7 @@ export class CategoryController {
     @Query('sortDirection', new DefaultValuePipe('asc'))
     sordDirection?: 'asc' | 'desc',
   ): Promise<TAllCategory> {
-    const query = {
+    const query: TCategoryQuery = {
       categoryName,
       categoryKey,
       categoryType,
@@ -80,5 +85,23 @@ export class CategoryController {
       sortDirection: sordDirection,
     };
     return await this.categoryService.findAll(query);
+  }
+
+  // Update Category
+
+  @Patch(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+    type: CreateCategoryResponse,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @UseGuards(JwtGuard, new PermissionStrategy(['update-category']))
+  async updateCategory(
+    @Body() data: CreateCategoryDto,
+    @Param('id', new ParseIntPipe()) id: number,
+  ): Promise<TCategory> {
+    return await this.categoryService.updateCategory(id, data);
   }
 }
