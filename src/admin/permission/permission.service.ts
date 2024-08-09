@@ -41,8 +41,11 @@ export class PermissionService {
     }
     if (query.permissionGroup) {
       filter.push({
-        permissionGroup: {
-          name: { contains: query.permissionGroup, mode: 'insensitive' },
+        PermissionGroup: {
+          groupName: {
+            contains: query.permissionGroup,
+            mode: 'insensitive',
+          },
         },
       });
     }
