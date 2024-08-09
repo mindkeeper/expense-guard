@@ -1,11 +1,17 @@
 model Categories {
-    id           Int      @id @default(autoincrement())
-    categoryName String   @unique @map("category_name") @db.VarChar(100)
-    categoryKey  String   @unique @map("category_key") @db.VarChar(100)
-    createdAt    DateTime @default(now()) @map("created_at")
-    updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+    id           Int          @id @default(autoincrement())
+    categoryName String       @unique @map("category_name") @db.VarChar(100)
+    categoryKey  String       @unique @map("category_key") @db.VarChar(100)
+    categoryType CategoryType @map("category_type")
+    createdAt    DateTime     @default(now()) @map("created_at")
+    updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at")
 
     Transactions Transaction[]
 
     @@map("categories")
+}
+
+enum CategoryType {
+    INCOME
+    EXPENSE
 }

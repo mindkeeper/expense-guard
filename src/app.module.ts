@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { PermissionModule } from './admin/permission/permission.module';
 import { RolePermissionModule } from './admin/role-permission/role-permission.module';
 import { AccountModule } from './account/account.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AccountModule } from './account/account.module';
     PermissionModule,
     RolePermissionModule,
     AccountModule,
+    CategoryModule,
   ],
 })
 export class AppModule {}
