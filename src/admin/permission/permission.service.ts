@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PaginatorService } from 'src/common/paginator.service';
 import { PrismaService } from 'src/common/prisma.service';
-import { TAllPermissionQUery, TAllPermissions } from './dto';
+import {
+  PermissionDto,
+  TAllPermissionQUery,
+  TAllPermissions,
+  TDeletePermission,
+  TUpdatePemissionDto,
+  UpdatePemissionDto,
+} from './dto';
 
 type TPermission = {
   id: number;
@@ -19,6 +26,7 @@ export class PermissionService {
     private prisma: PrismaService,
     private paginator: PaginatorService,
   ) {}
+
   async findAll(query: TAllPermissionQUery): Promise<TAllPermissions> {
     const filter: any[] = [];
     if (query.permissionName) {
@@ -60,5 +68,52 @@ export class PermissionService {
       items,
       meta,
     };
+  }
+
+  async createPermission(permissionDto: PermissionDto) {
+    const data = permissionDto.map((permission) => {
+      return {
+        permissionName: permission.permissionName,
+        permissionKey: permission.permissionKey,
+        permissionGroupId: permission.permissionGroupId,
+      };
+    });
+    const permisssions = await this.prisma.permission.createMany({
+      data,
+    });
+
+    return { count: permisssions.count };
+  }
+
+  async updatePermission(
+    id: number,
+    body: UpdatePemissionDto,
+  ): Promise<TUpdatePemissionDto> {
+    // Implement this method
+    const permission = await this.prisma.permission.update({
+      where: { id },
+      data: body,
+      select: {
+        id: true,
+        permissionName: true,
+        permissionKey: true,
+        permissionGroupId: true,
+      },
+    });
+
+    return permission;
+  }
+
+  async deletePermission(id: number): Promise<TDeletePermission> {
+    // Implement this method
+    const permission = await this.prisma.permission.delete({
+      where: { id },
+      select: {
+        id: true,
+        permissionName: true,
+        permissionKey: true,
+      },
+    });
+    return permission;
   }
 }

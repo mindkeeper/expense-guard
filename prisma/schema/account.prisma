@@ -9,5 +9,6 @@ model Account {
 
     Transactions Transaction[]
 
+    @@unique([accountName, userId])
     @@map("accounts")
 }

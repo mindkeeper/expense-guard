@@ -50,7 +50,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
           status = HttpStatus.BAD_REQUEST;
           message = `${(exception?.meta?.target as string[])[0]} already exists`;
           break;
-
+        case 'P2003':
+          status = HttpStatus.BAD_REQUEST;
+          message = `${exception?.meta?.modelName as string} id not found`;
+          break;
+        case 'P2025':
+          status = HttpStatus.BAD_REQUEST;
+          message = `${exception?.meta?.modelName as string} data not found`;
+          break;
         default:
           status = HttpStatus.INTERNAL_SERVER_ERROR; // Default status for unhandled Prisma errors
           message = 'An unexpected database error occurred';

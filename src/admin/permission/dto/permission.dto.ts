@@ -32,4 +32,68 @@ export class PermissionResponse extends createZodDto(
   }),
 ) {}
 
+export class PermissionDto extends createZodDto(
+  z.array(
+    z.object({
+      permissionName: z.string(),
+      permissionKey: z.string(),
+      permissionGroupId: z.number(),
+    }),
+  ),
+) {}
+
+export class CreatePermissionResponse extends createZodDto(
+  BaseResponse.extend({
+    statusCode: z.number().default(201),
+    data: z.object({
+      count: z.number(),
+    }),
+  }),
+) {}
+export type TCreatePermissionResponse = {
+  count: number;
+};
 export type TAllPermissions = z.infer<typeof AllPermissions>;
+
+export class UpdatePemissionDto extends createZodDto(
+  z.object({
+    permissionName: z.string().optional(),
+    permissionKey: z.string().optional(),
+    permissionGroupId: z.number().optional(),
+  }),
+) {}
+
+export class UpdatePermissionResponse extends createZodDto(
+  BaseResponse.extend({
+    data: z.object({
+      id: z.number(),
+      permissionName: z.string(),
+      permissionKey: z.string(),
+      permissionGroupId: z.number(),
+    }),
+  }),
+) {}
+
+export type TUpdatePemissionDto = {
+  id: number;
+  permissionName?: string;
+  permissionKey?: string;
+  permissionGroupId?: number;
+};
+
+//delete dto
+export class DeletePermissionResponse extends createZodDto(
+  BaseResponse.extend({
+    data: z.object({
+      id: z.number(),
+      permissionName: z.string(),
+      permissionKey: z.string(),
+    }),
+  }),
+) {}
+
+export type TDeletePermission = {
+  id: number;
+  permissionName: string;
+  permissionKey: string;
+};

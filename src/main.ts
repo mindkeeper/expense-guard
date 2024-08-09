@@ -7,6 +7,7 @@ import { HttpExceptionFilter } from './global-filter/http-exception.filter';
 import { TransformResponseInterceptor } from './utils/interceptor';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { patchNestjsSwagger } from '@anatine/zod-nestjs';
+import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -29,6 +30,7 @@ async function bootstrap() {
 
   // swagger
   if (configService.get('NODE_ENV') !== 'production') {
+    const theme = new SwaggerTheme();
     const config = new DocumentBuilder()
       .setTitle('coffeshop')
       .setDescription('coffeshop API documentation')
@@ -39,7 +41,10 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, document, {
       useGlobalPrefix: false,
-      swaggerOptions: { persistAuthorization: true },
+      customCss: theme.getBuffer(SwaggerThemeNameEnum.ONE_DARK),
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
     });
   }
   await app.listen(8080);

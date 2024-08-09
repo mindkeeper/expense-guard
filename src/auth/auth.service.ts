@@ -29,7 +29,7 @@ export class AuthService {
       data: {
         email: signUpDto.email,
         password: signUpDto.password,
-        roleId: 2,
+        roleId: 3,
       },
       select: {
         email: true,

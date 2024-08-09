@@ -11,8 +11,11 @@ export class UserService {
         email,
       },
       select: {
+        id: true,
         email: true,
         isVerified: true,
+        username: true,
+        imageUrl: true,
         role: {
           select: {
             permissions: {
