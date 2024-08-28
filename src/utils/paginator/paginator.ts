@@ -1,3 +1,5 @@
+import { PrismaClient, Prisma } from '@prisma/client';
+
 export interface IPaginatedResult<T> {
   items: T[];
   meta: {
@@ -15,11 +17,17 @@ export type TPaginateOptions = {
   perPage?: number;
 };
 
-export type TPaginateFunction = <T, K>(
-  model: any,
-  args: K,
+// The type for a Prisma delegate that supports findMany and count
+type PrismaDelegate = {
+  findMany: (args: any) => Promise<any>;
+  count: (args: any) => Promise<number>;
+};
+
+export type TPaginateFunction = <ModelDelegate extends PrismaDelegate, K>(
+  model: ModelDelegate,
+  args: Parameters<ModelDelegate['findMany']>[0],
   options: TPaginateOptions,
-) => Promise<IPaginatedResult<T>>;
+) => Promise<IPaginatedResult<K>>;
 
 export const paginator = (
   defaultOptions: TPaginateOptions,
