@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as cookieParser from 'cookie-parser';
 import { PassportModule } from '@nestjs/passport';
 import { TokenModule } from 'src/token/token.module';
 import { PaginatorService } from './paginator.service';
@@ -17,4 +18,12 @@ import { config } from 'src/config/config';
   providers: [PrismaService, PaginatorService],
   exports: [PrismaService, PaginatorService, PassportModule, TokenModule],
 })
-export class CommonModule {}
+export class CommonModule {
+  constructor(private readonly config: ConfigService) {}
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(cookieParser(this.config.get('COOKIE_SECRET')))
+      .forRoutes('*');
+  }
+}
