@@ -5,12 +5,12 @@ import * as cookieParser from 'cookie-parser';
 import { PassportModule } from '@nestjs/passport';
 import { TokenModule } from 'src/token/token.module';
 import { PaginatorService } from './paginator.service';
-
+import { config } from 'src/config/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.local',
+      load: [config],
     }),
     PassportModule,
     TokenModule,
