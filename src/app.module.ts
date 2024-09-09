@@ -7,6 +7,7 @@ import { RolePermissionModule } from './admin/role-permission/role-permission.mo
 import { AccountModule } from './account/account.module';
 import { CategoryModule } from './category/category.module';
 import { TransactionModule } from './transaction/transaction.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -19,5 +20,6 @@ import { TransactionModule } from './transaction/transaction.module';
     CategoryModule,
     TransactionModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
