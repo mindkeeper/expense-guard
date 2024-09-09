@@ -3,9 +3,9 @@ import { PrismaService } from './prisma.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
 import { PassportModule } from '@nestjs/passport';
-import { TokenModule } from 'src/token/token.module';
 import { PaginatorService } from './paginator.service';
 import { config } from 'src/config/config';
+import { TokenModule } from './token.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
