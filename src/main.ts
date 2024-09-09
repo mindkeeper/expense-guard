@@ -9,9 +9,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { patchNestjsSwagger } from '@anatine/zod-nestjs';
 import { SwaggerTheme, SwaggerThemeNameEnum } from 'swagger-themes';
 import { RequestMethod } from '@nestjs/common';
-
+import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.use(cookieParser(process.env.COOKIE_SECRET));
   app.enableCors({ origin: '*' });
   app.setGlobalPrefix('/api', {
     exclude: [{ path: '/', method: RequestMethod.GET }],
