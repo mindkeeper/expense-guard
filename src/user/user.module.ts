@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { CommonModule } from 'src/common/common.module';
-import { JwtStrategy } from 'src/token/strategy';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [CommonModule],

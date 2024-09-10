@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PaginatorService } from 'src/common/paginator.service';
-import { PrismaService } from 'src/common/prisma.service';
+import { PaginatorService } from '../../common/paginator.service';
+import { PrismaService } from '../../common/prisma.service';
 import {
   PermissionDto,
   TAllPermissionQUery,

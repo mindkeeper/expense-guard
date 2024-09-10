@@ -13,8 +13,8 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtGuard } from 'src/token/guard';
-import { PermissionStrategy } from 'src/token/strategy';
+import { JwtGuard } from '../../token/guard';
+import { PermissionStrategy } from '../../token/strategy';
 import {
   CreatePermissionResponse,
   DeletePermissionResponse,

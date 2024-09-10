@@ -7,11 +7,11 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { JwtGuard } from 'src/token/guard';
+import { JwtGuard } from '../token/guard';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { GetUser, TUser } from './decorator';
-import { PermissionStrategy } from 'src/token/strategy';
+import { PermissionStrategy } from '../token/strategy';
 import { UpdateUserDto } from './dto';
 
 @Controller('user')

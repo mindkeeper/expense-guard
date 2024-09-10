@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from '../common/prisma.service';
 import {
   CreateCategoryDto,
   TAllCategory,
@@ -7,7 +7,7 @@ import {
   TCategoryQuery,
   UpdateCategoryDto,
 } from './dto';
-import { PaginatorService } from 'src/common/paginator.service';
+import { PaginatorService } from '../common/paginator.service';
 
 @Injectable()
 export class CategoryService {

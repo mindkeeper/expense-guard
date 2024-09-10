@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { paginator, TPaginateFunction } from 'src/utils/paginator';
+import { paginator, TPaginateFunction } from '../utils/paginator';
 
 @Injectable()
 export class PaginatorService {

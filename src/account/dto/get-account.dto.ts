@@ -1,5 +1,5 @@
 import { createZodDto } from '@anatine/zod-nestjs';
-import { BaseMeta, BaseResponse } from 'src/utils';
+import { BaseMeta, BaseResponse } from '../..//utils';
 import { z } from 'zod';
 
 const AccountZ = z.object({

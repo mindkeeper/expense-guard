@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PaginatorService } from 'src/common/paginator.service';
-import { PrismaService } from 'src/common/prisma.service';
-import { TUser } from 'src/user/decorator';
+import { PaginatorService } from '../common/paginator.service';
+import { PrismaService } from '../common/prisma.service';
+import { TUser } from '../user/decorator';
 import { CreateTransactionDto, TTransaction } from './dto';
 import { Decimal } from '@prisma/client/runtime/library';
 

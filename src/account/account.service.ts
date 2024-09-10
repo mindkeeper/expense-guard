@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from '../common/prisma.service';
 import {
   CreateAccountDto,
   TAccountQuery,
@@ -8,9 +8,9 @@ import {
   TUpdateAccountResponse,
   UpdateAccountDto,
 } from './dto';
-import { TUser } from 'src/user/decorator';
+import { TUser } from '../user/decorator';
 import { Decimal } from '@prisma/client/runtime/library';
-import { PaginatorService } from 'src/common/paginator.service';
+import { PaginatorService } from '../common/paginator.service';
 
 type TAccount = {
   id: number;

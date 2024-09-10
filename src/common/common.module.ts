@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
 import { PassportModule } from '@nestjs/passport';
 import { PaginatorService } from './paginator.service';
-import { config } from 'src/config/config';
+import { config } from '../config/config';
 import { TokenModule } from './token.module';
 @Module({
   imports: [

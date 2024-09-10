@@ -23,9 +23,9 @@ import {
   TUpdateAccountResponse,
   UpdateAccountDto,
 } from './dto';
-import { GetUser, TUser } from 'src/user/decorator';
-import { JwtGuard } from 'src/token/guard';
-import { PermissionStrategy } from 'src/token/strategy';
+import { GetUser, TUser } from '../user/decorator';
+import { JwtGuard } from '../token/guard';
+import { PermissionStrategy } from '../token/strategy';
 import { ZodValidationPipe } from '@anatine/zod-nestjs';
 
 @Controller('account')

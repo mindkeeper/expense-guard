@@ -21,8 +21,8 @@ import {
   TCategory,
   TCategoryQuery,
 } from './dto';
-import { JwtGuard } from 'src/token/guard';
-import { PermissionStrategy } from 'src/token/strategy';
+import { JwtGuard } from '../token/guard';
+import { PermissionStrategy } from '../token/strategy';
 
 @Controller('category')
 @ApiBearerAuth()

@@ -1,6 +1,6 @@
 import { createZodDto } from '@anatine/zod-nestjs';
 import { extendApi } from '@anatine/zod-openapi';
-import { BaseMeta, BaseResponse } from 'src/utils';
+import { BaseMeta, BaseResponse } from '../../..//utils';
 import { z } from 'zod';
 
 const PermissionZ = extendApi(

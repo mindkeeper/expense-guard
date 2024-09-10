@@ -1,5 +1,3 @@
-import { PrismaClient, Prisma } from '@prisma/client';
-
 export interface IPaginatedResult<T> {
   items: T[];
   meta: {

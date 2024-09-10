@@ -7,9 +7,9 @@ import {
   CreateTransactionResponse,
   TTransaction,
 } from './dto';
-import { GetUser, TUser } from 'src/user/decorator';
-import { PermissionStrategy } from 'src/token/strategy';
-import { JwtGuard } from 'src/token/guard';
+import { GetUser, TUser } from '../user/decorator';
+import { PermissionStrategy } from '../token/strategy';
+import { JwtGuard } from '../token/guard';
 
 @Controller('transaction')
 @ApiBearerAuth()

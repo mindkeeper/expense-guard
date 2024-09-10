@@ -1,6 +1,6 @@
 import { createZodDto } from '@anatine/zod-nestjs';
 import { extendApi } from '@anatine/zod-openapi';
-import { BaseResponse } from 'src/utils';
+import { BaseResponse } from '../..//utils';
 import { z } from 'zod';
 
 const AccountZ = extendApi(
