@@ -6,14 +6,24 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        global: true,
-        secret: configService.get('JWT_SECRET'),
-        signOptions: {
-          expiresIn: configService.get('JWT_EXPiRES_IN'),
-          issuer: configService.get('JWT_ISSUER'),
-        },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        console.log(
+          'configService.get(JWT_SECRET)',
+          configService.get('JWT_SECRET'),
+        );
+        console.log(
+          'configService.get(JWT_EXPiRES_IN)',
+          configService.get('JWT_EXPiRES_IN'),
+        );
+        return {
+          global: true,
+          secret: configService.get('JWT_SECRET'),
+          signOptions: {
+            expiresIn: configService.get('JWT_EXPiRES_IN'),
+            issuer: configService.get('JWT_ISSUER'),
+          },
+        };
+      },
       inject: [ConfigService],
     }),
   ],
