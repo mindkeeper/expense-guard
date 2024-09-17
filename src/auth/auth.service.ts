@@ -62,8 +62,8 @@ export class AuthService {
     return { email: user.email };
   }
 
-  async createToken(payload: any) {
-    const token = await this.jwt.signAsync(payload);
+  createToken(payload: any) {
+    const token = this.jwt.sign(payload);
     return { access_token: token };
   }
 

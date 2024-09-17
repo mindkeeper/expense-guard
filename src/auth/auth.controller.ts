@@ -41,8 +41,8 @@ export class AuthController {
   ): Promise<TSignUpResponse> {
     const { config } = this;
     const user = await this.authService.signUp(signUpDto);
-    const token = await this.authService.createToken(user);
-    const refreshToken = await this.authService.createRefreshToken(user);
+    const token = this.authService.createToken(user);
+    // const refreshToken = await this.authService.createRefreshToken(user);
     // res.cookie(config.get('COOKIE_NAME'), refreshToken, {
     //   httpOnly: config.get('COOKIE_HTTP_ONLY'),
     //   secure: config.get('COOKIE_SECURE'),
@@ -67,8 +67,8 @@ export class AuthController {
   ): Promise<TSignInResponse> {
     const { config } = this;
     const user = await this.authService.authenticate(signInDto);
-    const token = await this.authService.createToken(user);
-    const refreshToken = await this.authService.createRefreshToken(user);
+    const token = this.authService.createToken(user);
+    // const refreshToken = await this.authService.createRefreshToken(user);
     // res.cookie(config.get('COOKIE_NAME'), refreshToken, {
     //   httpOnly: config.get('COOKIE_HTTP_ONLY'),
     //   secure: config.get('COOKIE_SECURE'),
