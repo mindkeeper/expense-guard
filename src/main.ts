@@ -24,7 +24,7 @@ async function bootstrap() {
 
   // exception filter
   app.useGlobalFilters(
-    new AllExceptionFilter(httpAdapterHost),
+    new AllExceptionFilter(httpAdapterHost, configService),
     new RouteExceptionFilter(),
     new HttpExceptionFilter(configService),
   );

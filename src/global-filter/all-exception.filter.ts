@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost } from '@nestjs/core';
 
 type TResponse<T> = {
@@ -19,7 +20,10 @@ type TResponse<T> = {
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(AllExceptionFilter.name);
-  constructor(private httpAdapterHost: HttpAdapterHost) {}
+  constructor(
+    private httpAdapterHost: HttpAdapterHost,
+    private config: ConfigService,
+  ) {}
 
   catch(exception: any, host: ArgumentsHost) {
     const { httpAdapter } = this.httpAdapterHost;
@@ -30,6 +34,10 @@ export class AllExceptionFilter implements ExceptionFilter {
       `Exception: ${exception.message}, Status: ${status}, Stack: ${exception.stack}`,
     );
 
+    const jwtSecret = this.config.get('JWT_SECRET');
+    const expiresIn = this.config.get('JWT_EXPIRES_IN');
+    this.logger.error(`jwtSecret: ${jwtSecret}`);
+    this.logger.error(`expiresIn: ${expiresIn}`);
     const response: TResponse<any> = {
       status: false,
       timestamp: new Date().toISOString(),
