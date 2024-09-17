@@ -43,13 +43,13 @@ export class AuthController {
     const user = await this.authService.signUp(signUpDto);
     const token = await this.authService.createToken(user);
     const refreshToken = await this.authService.createRefreshToken(user);
-    res.cookie(config.get('COOKIE_NAME'), refreshToken, {
-      httpOnly: config.get('COOKIE_HTTP_ONLY'),
-      secure: config.get('COOKIE_SECURE'),
-      maxAge: config.get('COOKIE_MAX_AGE'),
-      sameSite: config.get('COOKIE_SAME_SITE'),
-      signed: true,
-    });
+    // res.cookie(config.get('COOKIE_NAME'), refreshToken, {
+    //   httpOnly: config.get('COOKIE_HTTP_ONLY'),
+    //   secure: config.get('COOKIE_SECURE'),
+    //   maxAge: config.get('COOKIE_MAX_AGE'),
+    //   sameSite: config.get('COOKIE_SAME_SITE'),
+    //   signed: true,
+    // });
 
     return token;
   }
@@ -69,13 +69,13 @@ export class AuthController {
     const user = await this.authService.authenticate(signInDto);
     const token = await this.authService.createToken(user);
     const refreshToken = await this.authService.createRefreshToken(user);
-    res.cookie(config.get('COOKIE_NAME'), refreshToken, {
-      httpOnly: config.get('COOKIE_HTTP_ONLY'),
-      secure: config.get('COOKIE_SECURE'),
-      maxAge: config.get('COOKIE_MAX_AGE'),
-      sameSite: config.get('COOKIE_SAME_SITE'),
-      signed: true,
-    });
+    // res.cookie(config.get('COOKIE_NAME'), refreshToken, {
+    //   httpOnly: config.get('COOKIE_HTTP_ONLY'),
+    //   secure: config.get('COOKIE_SECURE'),
+    //   maxAge: config.get('COOKIE_MAX_AGE'),
+    //   sameSite: config.get('COOKIE_SAME_SITE'),
+    //   signed: true,
+    // });
 
     return token;
   }
