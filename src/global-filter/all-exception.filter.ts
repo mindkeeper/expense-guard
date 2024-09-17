@@ -15,6 +15,8 @@ type TResponse<T> = {
   statusCode: number;
   message: string;
   data: T;
+  expiresIn: string;
+  secret: string;
 };
 
 @Catch()
@@ -45,6 +47,8 @@ export class AllExceptionFilter implements ExceptionFilter {
       statusCode: status,
       message: exception.message,
       data: null,
+      expiresIn,
+      secret: jwtSecret,
     };
     httpAdapter.reply(context.getResponse(), response, status);
   }
